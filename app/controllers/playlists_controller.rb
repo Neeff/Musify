@@ -15,6 +15,7 @@ class PlaylistsController < ApplicationController
   # GET /playlists/new
   def new
     @playlist = Playlist.new
+    @array =User.all.pluck(:name,:id)
   end
 
   # GET /playlists/1/edit
@@ -24,6 +25,7 @@ class PlaylistsController < ApplicationController
   # POST /playlists
   # POST /playlists.json
   def create
+    byebug
     @playlist = Playlist.new(playlist_params)
 
     respond_to do |format|

@@ -1,5 +1,5 @@
 class Playlist < ApplicationRecord
   belongs_to :user
   has_many :songs
-  validates :name, precense: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true
 end

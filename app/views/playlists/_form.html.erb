@@ -10,15 +10,14 @@
       </ul>
     </div>
   <% end %>
+  <div class="field">
+    <%= form.label :User%>
+    <%= form.select :user_id, @array,prompt: 'Selecciona un usuario' %>
+  </div>
 
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
   </div>
 
   <div class="actions">
