@@ -1,34 +1,38 @@
 class SongsController < ApplicationController
   before_action :set_song, only: [:show, :edit, :update, :destroy]
 
+
   # GET /songs
   # GET /songs.json
   def index
     @songs = Song.all
-  end
-
+    @playlist = Playlist.find(params[:playlist_id])
+    @song = @playlist[:id]
+end
   # GET /songs/1
   # GET /songs/1.json
   def show
+    @playlist = Playlist.find(params[:playlist_id])
   end
 
   # GET /songs/new
   def new
-    @song = Song.new
   end
 
   # GET /songs/1/edit
   def edit
+    @playlist = Playlist.find(params[:playlist_id])
   end
 
   # POST /songs
   # POST /songs.json
   def create
     @song = Song.new(song_params)
+    @song.playlist_id = params[:playlist_id]
 
     respond_to do |format|
       if @song.save
-        format.html { redirect_to @song, notice: 'Song was successfully created.' }
+        format.html { redirect_to playlist_song_path(@song.playlist_id, @song.id), notice: 'Song was successfully created.' }
         format.json { render :show, status: :created, location: @song }
       else
         format.html { render :new }
@@ -42,7 +46,7 @@ class SongsController < ApplicationController
   def update
     respond_to do |format|
       if @song.update(song_params)
-        format.html { redirect_to @song, notice: 'Song was successfully updated.' }
+        format.html { redirect_to playlist_song_path(@song.playlist_id, @song.id), notice: 'Song was successfully updated.' }
         format.json { render :show, status: :ok, location: @song }
       else
         format.html { render :edit }
@@ -56,7 +60,7 @@ class SongsController < ApplicationController
   def destroy
     @song.destroy
     respond_to do |format|
-      format.html { redirect_to songs_url, notice: 'Song was successfully destroyed.' }
+      format.html { redirect_to playlist_path(Playlist.find(params[:playlist_id])), notice: 'Song was successfully destroyed.'  }
       format.json { head :no_content }
     end
   end

@@ -10,27 +10,30 @@ class PlaylistsController < ApplicationController
   # GET /playlists/1
   # GET /playlists/1.json
   def show
+    @song = Song.new
+    @songs = Song.where(playlist_id: @playlist)
   end
 
   # GET /playlists/new
   def new
     @playlist = Playlist.new
-    @array =User.all.pluck(:name,:id)
+
+    @array =User.pluck(:name,:id)
   end
 
   # GET /playlists/1/edit
   def edit
+    @array =User.pluck(:name,:id)
   end
 
   # POST /playlists
   # POST /playlists.json
   def create
-    byebug
     @playlist = Playlist.new(playlist_params)
 
     respond_to do |format|
       if @playlist.save
-        format.html { redirect_to @playlist, notice: 'Playlist was successfully created.' }
+        format.html { redirect_to @playlist, notice: 'Playlist was successfully created.',class:"text-success" }
         format.json { render :show, status: :created, location: @playlist }
       else
         format.html { render :new }
@@ -44,7 +47,7 @@ class PlaylistsController < ApplicationController
   def update
     respond_to do |format|
       if @playlist.update(playlist_params)
-        format.html { redirect_to @playlist, notice: 'Playlist was successfully updated.' }
+        format.html { redirect_to @playlist, notice: 'Playlist was successfully updated.',class: 'text-success' }
         format.json { render :show, status: :ok, location: @playlist }
       else
         format.html { render :edit }
@@ -58,7 +61,7 @@ class PlaylistsController < ApplicationController
   def destroy
     @playlist.destroy
     respond_to do |format|
-      format.html { redirect_to playlists_url, notice: 'Playlist was successfully destroyed.' }
+      format.html { redirect_to playlists_url, notice: 'Playlist was successfully destroyed.',class:'text-danger' }
       format.json { head :no_content }
     end
   end

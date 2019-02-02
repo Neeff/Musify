@@ -12,8 +12,8 @@
 
 <p>
   <strong>Playlist:</strong>
-  <%= @song.playlist %>
+  <%= @song.playlist.name%>
 </p>
 
-<%= link_to 'Edit', edit_song_path(@song) %> |
-<%= link_to 'Back', songs_path %>
+<%= link_to 'Edit',  edit_playlist_song_path(@song.playlist_id,@song) %> |
+<%= link_to 'Back', playlist_path(@playlist) %>
